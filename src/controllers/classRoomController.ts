@@ -240,7 +240,7 @@ export const updateTask = async (req: Request, res: Response): Promise<void> => 
     if (teacherFeedback !== undefined) updateFields["tasks.$.teacherFeedback"] = teacherFeedback;
 
     const updatedRoom = await ClassRoom.findOneAndUpdate(
-      { _id: classRoomId, "tasks._id": taskId }, // Filtro: Busca la sala y la tarea exacta
+      { _id: classRoomId, "tasks._id": taskId } as any, // Filtro: Busca la sala y la tarea exacta
       { $set: updateFields },               // Acción: Modifica solo los campos enviados
       { new: true }                         // Opción: Devuelve el documento ya actualizado
     );
