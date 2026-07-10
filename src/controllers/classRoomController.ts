@@ -246,12 +246,10 @@ export const updateTask = async (req: Request, res: Response): Promise<void> => 
     );
 
     if (!updatedRoom) {
-      console.log("❌ No se encontró la sala o la tarea con esos IDs");
       res.status(404).json({ message: "Sala o Tarea no encontrada" });
       return;
     }
 
-    console.log("✅ Base de datos actualizada con éxito.");
     res.json(updatedRoom);
   } catch (error) {
     console.error("❌ Error crítico en updateTask:", error);

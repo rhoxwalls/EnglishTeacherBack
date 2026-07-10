@@ -21,7 +21,7 @@ app.use(helmet());
 
 const allowedOrigins = [
   "http://localhost:5173", // Local
-  "https://tu-app-frontend.vercel.app", // URL de producción (reemplazar luego)
+  "https://https://rhoxwalls.github.io", // URL de producción (reemplazar luego)
 ];
 
 app.use(cors({
