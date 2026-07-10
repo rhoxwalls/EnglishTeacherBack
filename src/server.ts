@@ -19,24 +19,33 @@ const MONGODB_URI = process.env.MONGODB_URI || "";
 
 app.use(helmet());
 
-const allowedOrigins = [
-  "http://localhost:5173", // Local
-  "https://https://rhoxwalls.github.io", // URL de producción (reemplazar luego)
-];
+// const allowedOrigins = [
+//   "http://localhost:5173", // Local
+//   "https://https://rhoxwalls.github.io", // URL de producción (reemplazar luego)
+// ];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('No permitido por CORS'));
-    }
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-}));
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('No permitido por CORS'));
+//     }
+//   },
+//   credentials: true,
+//   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+// }));
 
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://rhoxwalls.github.io"], // Solo los dominios exactos
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // El OPTIONS es vital aquí
+    allowedHeaders: ["Content-Type", "Authorization", "Accept"], // Permite que pasen tus tokens
+  })
+);
 
+app.options('*', cors());
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
